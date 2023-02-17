@@ -1,0 +1,66 @@
+torch==1.8
+numpy==1.19.2
+pytorch_msssim==0.2.1
+tqdm==4.59.0
+torchvision==0.9
+dahuffman==0.4.1
+Pillow==8.4.0
+yaspin==2.1.0
+tensorboard
+
+#### NeRV原始文件中的命令
+CUDA_VISIBLE_DEVICES=2  python train_nerv.py -e 300   --lower-width 96 --num-blocks 1 --dataset bunny --frame_gap 1 \
+    --outf bunny_ab --embed 1.25_40 --stem_dim_num 512_1  --reduction 2  --fc_hw_dim 9_16_26 --expansion 1  \
+    --single_res --loss Fusion6   --warmup 0.2 --lr_type cosine  --strides 5 2 2 2 2  --conv_type conv \
+    -b 1  --lr 0.0005 --norm none --act swish
+
+
+
+CUDA_VISIBLE_DEVICES=3    python train_nerv.py -e 300   --lower-width 96 --num-blocks 1 --dataset bunny --frame_gap 1 \
+    --outf bunny_ab --embed 1.25_40 --stem_dim_num 512_1  --reduction 2  --fc_hw_dim 9_16_26 --expansion 1  \
+    --single_res --loss Fusion6   --warmup 0.2 --lr_type cosine  --strides 5 2 2 2 2  --conv_type conv \
+    -b 1  --lr 0.0005 --norm none  --act swish \
+    --weight checkpoints/nerv_S.pth --eval_only --quant_bit 4 --eval_fps
+
+
+CUDA_VISIBLE_DEVICES=3    python train_nerv.py -e 300   --lower-width 96 --num-blocks 1 --dataset bunny --frame_gap 1 \
+    --outf bunny_ab --embed 1.25_40 --stem_dim_num 512_1  --reduction 2  --fc_hw_dim 9_16_26 --expansion 1  \
+    --single_res --loss Fusion6   --warmup 0.2 --lr_type cosine  --strides 5 2 2 2 2  --conv_type conv \
+    -b 1  --lr 0.0005 --norm none  --act swish \
+   --weight checkpoints/nerv_S.pth --eval_only  --dump_images
+
+
+
+CUDA_VISIBLE_DEVICES=3   python train_nerv.py -e 100   --lower-width 96 --num-blocks 1 --dataset bunny --frame_gap 1 \
+    --outf prune_ab --embed 1.25_40 --stem_dim_num 512_1  --reduction 2  --fc_hw_dim 9_16_26 --expansion 1  \
+    --single_res --loss Fusion6   --warmup 0. --lr_type cosine  --strides 5 2 2 2 2  --conv_type conv \
+    -b 1  --lr 0.0005 --norm none --suffix 107  --act swish \
+    --weight checkpoints/nerv_S.pth --not_resume_epoch --prune_ratio 0.4
+
+
+CUDA_VISIBLE_DEVICES=3    python train_nerv.py -e 100   --lower-width 96 --num-blocks 1 --dataset bunny --frame_gap 1 \
+    --outf dbg --embed 1.25_40 --stem_dim_num 512_1  --reduction 2  --fc_hw_dim 9_16_26 --expansion 1  \
+    --single_res --loss Fusion6   --warmup 0. --lr_type cosine  --strides 5 2 2 2 2  --conv_type conv \
+    -b 1  --lr 0.0005 --norm none --suffix 107  --act swish \
+    --weight checkpoints/nerv_S_pruned.pth --prune_ratio 0.4  --eval_only --quant_bit 8 --quant_axis 0
+
+
+
+##### 跑一下不同宽度之间的差别
+CUDA_VISIBLE_DEVICES=2  python train_nerv.py -e 300   --lower-width 96 --num-blocks 1 --dataset bunny --frame_gap 1 \
+    --outf bunny_l_128 --embed 1.25_40 --stem_dim_num 128_1  --reduction 2  --fc_hw_dim 9_16_112 --expansion 1  \
+    --single_res --loss Fusion6   --warmup 0.2 --lr_type cosine  --strides 5 2 2 2 2  --conv_type conv \
+    -b 1  --lr 0.0005 --norm none --act swish
+
+
+CUDA_VISIBLE_DEVICES=2  python train_nerv.py -e 300   --lower-width 96 --num-blocks 1 --dataset bunny --frame_gap 1 \
+    --outf bunny_l_256 --embed 1.25_40 --stem_dim_num 256_1  --reduction 2  --fc_hw_dim 9_16_112 --expansion 1  \
+    --single_res --loss Fusion6   --warmup 0.2 --lr_type cosine  --strides 5 2 2 2 2  --conv_type conv \
+    -b 1  --lr 0.0005 --norm none --act swish
+
+CUDA_VISIBLE_DEVICES=3  python train_nerv.py -e 300   --lower-width 96 --num-blocks 1 --dataset bunny --frame_gap 1 \
+    --outf bunny_l_384 --embed 1.25_40 --stem_dim_num 384_1  --reduction 2  --fc_hw_dim 9_16_112 --expansion 1  \
+    --single_res --loss Fusion6   --warmup 0.2 --lr_type cosine  --strides 5 2 2 2 2  --conv_type conv \
+    -b 1  --lr 0.0005 --norm none --act swish
+
+
