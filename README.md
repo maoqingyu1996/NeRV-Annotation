@@ -1,3 +1,4 @@
+# 为NeRV代码添加一些注释方便自己阅读理解
 # NeRV: Neural Representations for Videos  (NeurIPS 2021)
 ### [Project Page](https://haochen-rye.github.io/NeRV) | [Paper](https://arxiv.org/abs/2110.13903) | [UVG Data](http://ultravideo.fi/#testsequences) 
 
@@ -97,6 +98,7 @@ We provide numerical results for distortion-compression (Figure 7, 8 and 11) at 
 最终的bbp是通过以上公式计算的，我们提供了率失真压缩的数值结果，体现在正文的图7，8和11中。
 
 ## Citation
+欢迎各位引用Hao Chen大佬的文章
 If you find our work useful in your research, please cite:
 ```
 @inproceedings{hao2021nerv,
@@ -107,5 +109,3 @@ If you find our work useful in your research, please cite:
 }
 ```
 
-## Contact
-If you have any questions, please feel free to email the authors.
