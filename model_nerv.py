@@ -8,10 +8,10 @@ from torch.utils.data import Dataset
 # 
 class CustomDataSet(Dataset):
     def __init__(self, main_dir, transform, vid_list=[None], frame_gap=1,  visualize=False):
-        self.main_dir = main_dir
-        self.transform = transform
-        frame_idx, self.frame_path = [], []
-        accum_img_num = []
+        self.main_dir = main_dir # 主目录
+        self.transform = transform # 转换器
+        frame_idx, self.frame_path = [], [] # 帧索引，帧路径
+        accum_img_num = [] # 累积图像数量
         # 
         all_imgs = os.listdir(main_dir)
         all_imgs.sort()
